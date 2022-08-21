@@ -1,22 +1,26 @@
-
-
 import { useState } from 'react';
 
+let globalId = 0
 function App() {
+
   //array of todos 
   const [todos, setTodos] = useState([])
+
   //value of the input field 
   const [value, setvalue] = useState("")
+
   //function to add todos
   function createTodo(event) {
     event.preventDefault()
     setTodos(oldtodos => {
       setvalue("")
-      return [...oldtodos, value]
+      return [...oldtodos, { todo: value, id: globalId++ }]
     })
   }
-
-
+  //function to delete todo form list 
+  function deleteTodo(itemId) {
+    setTodos(oldtodos => todos.filter(entry => entry.id !== itemId))
+  }
   return (
     <div>
       <h2>Todo app</h2>
@@ -30,7 +34,13 @@ function App() {
         <button type='submit'>Add todo</button>
       </form>
       <ul>
-        {todos.map(todo => <li>{todo}</li>)}
+        {todos.map(entry => {
+          return <div>
+            <li key={entry.id}>{entry.todo}
+            </li>
+            <button onClick={() => deleteTodo(entry.id)}>delete</button>
+          </div>
+        })}
       </ul>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import "./css/app.css"
 let globalId = 0
 function App() {
 
@@ -22,8 +22,8 @@ function App() {
     setTodos(oldtodos => todos.filter(entry => entry.id !== itemId))
   }
   return (
-    <div>
-      <h2>Todo app</h2>
+    <div className='main-div'>
+      <h2>Best Todo App</h2>
       <form onSubmit={createTodo}>
         <input
           type='text'
